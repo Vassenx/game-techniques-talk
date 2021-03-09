@@ -1,0 +1,38 @@
+{
+    "waveConfigs": [
+        {
+            "id" : "001",
+            "monsterConfigs" : [
+                {
+                    "spriteName": "Golem",
+                    "health": 10,
+                    "damage": 2,
+                    "weaponName": "Sword"
+                },
+                {
+                    "spriteName": "Golem",
+                    "health": 40,
+                    "damage": 4,
+                    "weaponName": "Sword"
+                }
+            ]
+        },
+        {
+            "id" : "002",
+            "monsterConfigs" : [
+                {
+                    "spriteName": "Golem",
+                    "health": 10,
+                    "damage": 2,
+                    "weaponName": "Sword"
+                },
+                {
+                    "spriteName": "Golem",
+                    "health": 40,
+                    "damage": 4,
+                    "weaponName": "Sword"
+                }
+            ]
+        }
+    ]
+}
