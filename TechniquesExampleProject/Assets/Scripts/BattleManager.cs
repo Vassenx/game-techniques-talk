@@ -12,5 +12,7 @@ public class BattleManager : MonoBehaviour
         var monster = monsterPool.GetPrefabInstance();
         
         monster.GetComponent<SpriteRenderer>().sprite = sprite;
+        
+        //monster.ReturnToPool();
     }
 }

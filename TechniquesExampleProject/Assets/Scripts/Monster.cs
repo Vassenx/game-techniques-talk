@@ -6,7 +6,6 @@ public class Monster : MonoBehaviour, IPoolable
     
     public void PrepareToUse()
     {
-        
     }
 
     public void ReturnToPool()

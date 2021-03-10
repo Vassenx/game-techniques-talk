@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: SAM alt-D is go to declaration
@@ -14,9 +15,24 @@ public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
 {
     // Reference to prefab
     [SerializeField] private T prefab;
+    [SerializeField] private int startingPoolSize = 5;
 
     // References to reusable instances
     private Stack<T> objectPool = new Stack<T>();
+
+    private void Awake()
+    {
+        for (int i = 0; i < startingPoolSize; i++)
+        {
+            var instance = Instantiate(prefab);
+
+            instance.Origin = this; //object knows which pool to go back to
+            ResetTransform(instance);
+            instance.gameObject.SetActive(false);
+            
+            objectPool.Push(instance);
+        }
+    }
 
     /// <summary>
     /// Returns instance of prefab.
@@ -30,18 +46,7 @@ public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
             // get & remove object from pool
             instance = objectPool.Pop();
 
-            var objTransform = instance.transform;
-            
-            // remove parent
-            objTransform.SetParent(null);
-
-            // reset position
-            objTransform.localPosition = Vector3.zero;
-            objTransform.localScale = Vector3.one;
-            objTransform.localEulerAngles = Vector3.one;
-
-            // activate object
-            instance.gameObject.SetActive(true);
+            ResetTransform(instance);
         }
         // otherwise create new instance of prefab
         else
@@ -49,6 +54,7 @@ public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
             instance = Instantiate(prefab);
         }
 
+        instance.gameObject.SetActive(true);
         instance.Origin = this; //object knows which pool to go back to
         instance.PrepareToUse();
 
@@ -63,15 +69,7 @@ public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
     {
         instance.gameObject.SetActive(false);
 
-        var objTransform = instance.transform;
-        
-        // set parent as this object
-        objTransform.SetParent(transform);
-
-        // reset position
-        objTransform.localPosition = Vector3.zero;
-        objTransform.localScale = Vector3.one;
-        objTransform.localEulerAngles = Vector3.one;
+        ResetTransform(instance);
 
         // add to pool
         objectPool.Push(instance);
@@ -93,5 +91,18 @@ public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
         {
             Debug.LogError("Warning! Wrong object type for object pooling: " + instance + " pool: " + this.name);
         }
+    }
+
+    private void ResetTransform(T instance)
+    {
+        var objTransform = instance.transform;
+        
+        // set parent as this object
+        objTransform.SetParent(transform);
+
+        // reset position
+        objTransform.localPosition = Vector3.zero;
+        objTransform.localScale = Vector3.one;
+        objTransform.localEulerAngles = Vector3.one;
     }
 }
