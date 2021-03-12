@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Be careful, Unity treats serializable non-MonoBehaviour classes like structs.
 /// This means do not write BattleData == null, instead try waves == null.
-/// Aside: use [NonSerialized] for any variables you dont want the json to fill out 
+/// tip: use [NonSerialized] for any variables you dont want the json to fill out 
 /// </summary>
 [System.Serializable]
 public class BattleConfig

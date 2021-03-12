@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: SAM alt-D is go to declaration
-
-
 // Object pool code from: https://www.patrykgalach.com/2019/04/01/how-to-implement-object-pooling-in-unity/ (edited)
 
 /// <summary>
 /// Basic object pool implementation
+/// tip: Generic/Template "T" is a Monster, Bullet, etc. Any (base) type of object you want to pool. See MonsterPool.cs & Monster.cs for the example
 /// </summary>
 public class GenericObjectPool<T> : MonoBehaviour, IObjectPool
     where T : MonoBehaviour, IPoolable //C# Generics with constraints
