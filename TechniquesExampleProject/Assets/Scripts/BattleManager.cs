@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class BattleManager : MonoBehaviour
     //tip: some coding conventions wants an underscore before private variables
     private int _waveMonstersKilled = 0;
     private int _currentWave = 0;
+
+    [SerializeField] private Text waveNumText;
+    [SerializeField] private Text monsterNumText;
     
     private void Awake()
     {
@@ -31,6 +35,7 @@ public class BattleManager : MonoBehaviour
                 _currentWave %= _battleConfig.waveConfigs.Count; // TODO: you'd actually stop the battle scene after last wave, or a win screen, etc
             }
             GetNextMonster();
+            UpdateUI();
         };
     }
 
@@ -48,6 +53,12 @@ public class BattleManager : MonoBehaviour
         monster.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
+    //This would normally be done in a separate GUI class, but I didn't want to set one for tutorial
+    private void UpdateUI()
+    {
+        waveNumText.text = "Wave: " + (_currentWave + 1);
+        monsterNumText.text = "Monster: " + (_waveMonstersKilled + 1);
+    }
 }
 
 

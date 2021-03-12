@@ -4,7 +4,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour, IPoolable
 {
     private Rigidbody2D _rb;
-    private Vector3 _velocity = new Vector3(1f, 0, 0);
+    private Vector3 _velocity = new Vector3(1.5f, 0, 0);
     
     public IObjectPool Origin { get; set; }
     
